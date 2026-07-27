@@ -95,7 +95,7 @@ elif system == "Linux":
     elif minutes_since_bedtime >= shutdown_delay and minutes_since_bedtime < shutdown_delay + (8*60) and shutdown:
         message = random.randint(0, len(forced_shutdown)-1)
         subprocess.run(["notify-send", "Mona", forced_shutdown[message]])
-        subprocess.run(["shutdown", "-h", "now"])
+        subprocess.run(["systemctl", "poweroff", "--force"])
 
 # Check and notify (macOS)
 elif system == "Darwin":
