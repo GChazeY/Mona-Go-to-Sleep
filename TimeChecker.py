@@ -13,12 +13,13 @@ if system == "Windows":
     from win11toast import toast
 
 # Paths
-if getattr(sys, 'frozen', False):
-    script_dir = os.path.dirname(sys.executable)
+if system == "Windows":
+    appdata_dir = os.path.join(os.environ["APPDATA"], "Mona")
 else:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    appdata_dir = os.path.join(os.path.expanduser("~"), ".mona")
 
-settings_path = os.path.join(script_dir, "settings.json")
+os.makedirs(appdata_dir, exist_ok=True)
+settings_path = os.path.join(appdata_dir, "settings.json")
 
 # Load bed time settings
 if not os.path.exists(settings_path):

@@ -3,17 +3,20 @@ import time
 import json
 import os
 import sys
+import platform
 import tkinter as tk
 
+system = platform.system()
+
 # Paths
-if getattr(sys, 'frozen', False):
-    script_dir = os.path.dirname(sys.executable)
+if system == "Windows":
+    appdata_dir = os.path.join(os.environ["APPDATA"], "Mona")
 else:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    appdata_dir = os.path.join(os.path.expanduser("~"), ".mona")
 
-settings_path = os.path.join(script_dir, "settings.json")
+os.makedirs(appdata_dir, exist_ok=True)
+settings_path = os.path.join(appdata_dir, "settings.json")
 
-print(settings_path)
 
 # Create the page
 root = tk.Tk()
